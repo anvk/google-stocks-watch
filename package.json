@@ -1,0 +1,43 @@
+{
+  "name": "google-stocks-watch",
+  "version": "0.1.0",
+  "author": "anvk",
+  "main": "google-stocks-watch.js",
+  "description": "Stock ticker to pull the latest stock data and calculate gain or losing based on the purchase if available",
+  "contributors": [
+    {
+      "name": "Alexey Novak",
+      "email": "alexey.novak.mail@gmail.com"
+    }
+  ],
+  "scripts": {
+    "test": "node node_modules/mocha/bin/mocha --reporter spec test/*"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:anvk/google-stocks-watch.git"
+  },
+  "keywords": [
+    "stocks",
+    "Google",
+    "API",
+    "watch"
+  ],
+  "dependencies": {
+    "google-stocks": "^0.1.3"
+  },
+  "devDependencies": {
+    "mocha": "2.2.x",
+    "chai": "2.1.x"
+  },
+  "engine": "node >= 0.10.x",
+  "homepage": "http://github.com/anvk/google-stocks-watch",
+  "bugs": {
+    "url": "https://github.com/anvk/google-stocks-watch/issues"
+  },
+  "private": false,
+  "license": "MIT"
+}
