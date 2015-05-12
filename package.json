@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "author": "anvk",
   "main": "google-stocks-watch.js",
-  "description": "Stock ticker to pull the latest stock data and calculate gain or losing based on the purchase if available",
+  "description": "Stock ticker to pull the latest stock data and calculate gain or loss based on the purchase",
   "contributors": [
     {
       "name": "Alexey Novak",

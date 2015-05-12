@@ -1,6 +1,6 @@
 # google-stocks-watch [![Build Status](https://travis-ci.org/anvk/google-stocks-watch.svg?branch=master)](https://travis-ci.org/anvk/google-stocks-watch)
 
-> Get stocks using Google Finance API
+> Stock ticker to pull the latest stock data and calculate gain or loss based on the purchase. Based on [google-stocks NPM](https://github.com/anvk/google-stocks)
 
 
 ## Install
