@@ -2,7 +2,7 @@
 
 var chai = require('chai'),
     expect = chai.expect,
-    utils = require('../lib/google-stocks-watch.js');
+    utils = require('../dist/google-stocks-watch.js');
 
 describe('utils tests', function() {
 

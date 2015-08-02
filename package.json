@@ -1,8 +1,8 @@
 {
   "name": "google-stocks-watch",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "anvk",
-  "main": "google-stocks-watch.js",
+  "main": "dist/google-stocks-watch.js",
   "description": "Stock ticker to pull the latest stock data and calculate gain or loss based on the purchase",
   "contributors": [
     {
@@ -27,11 +27,12 @@
     "watch"
   ],
   "dependencies": {
-    "google-stocks": "^0.1.3"
+    "google-stocks": "0.1.4"
   },
   "devDependencies": {
     "mocha": "2.2.x",
-    "chai": "2.1.x"
+    "chai": "2.1.x",
+    "clear": "0.0.1"
   },
   "engine": "node >= 0.10.x",
   "homepage": "http://github.com/anvk/google-stocks-watch",

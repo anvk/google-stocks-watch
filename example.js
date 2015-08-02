@@ -1,11 +1,14 @@
-/*global require*/
+'use strict';
 
-var GoogleStocksWatch = require('./lib/google-stocks-watch'),
+/* global require */
+
+var GoogleStocksWatch = require('./dist/google-stocks-watch'),
     clear = require('clear'),
-    googleStocksWatch;
+    googleStocksWatch,
+    index = 0;
 
 var config = {
-  timerInterval: 8,
+  timerInterval: 4000, // milliseconds
   stocks: {
     'AAPL': {
       amount: '2',
@@ -20,6 +23,8 @@ var config = {
 
 googleStocksWatch = new GoogleStocksWatch(config, function(err, data) {
   clear();
+  index = index + 1;
+  console.log('#%d iteration', index);
   console.log(data);
 });
 

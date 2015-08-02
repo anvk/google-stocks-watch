@@ -6,19 +6,43 @@
 ## Install
 
 ```
-$ npm install --save google-stocks-watch
+$ npm install google-stocks-watch --save
 ```
 
+## API
+
+#### GoogleStocksWatch(options, callback)
+
+> constructor to initialize Google Stocks Watch
+
+> `options` - options for the module  
+> `options.timerInterval` - (optional) how often ticker callback will be executed (in milliseconds) (default 10000)  
+> `options.stocks` - object containing initial stock purchase  
+> `stock.amount` - amount of purchased stocks  
+> `stock.price` - initial price  
+> `callback` - function callback to be executed every `timerInterval` milliseconds. Has 2 arguments: `error` and `data`  
+
+
+#### start()
+
+> function to start time ticker
+
+#### stop()
+
+> function to stop time ticker
+
+#### stocks
+
+> property which contains initial `stocks` object
 
 ## Usage
 
 ```js
 var GoogleStocksWatch = require('google-stocks-watch'),
-    clear = require('clear'),
     googleStocksWatch;
 
 var config = {
-  timerInterval: 8,
+  timerInterval: 8000, // milliseconds
   stocks: {
     'AAPL': {
       amount: '2',
@@ -32,7 +56,6 @@ var config = {
 };
 
 googleStocksWatch = new GoogleStocksWatch(config, function(err, data) {
-  clear();
   console.log(data);
 });
 
@@ -62,6 +85,12 @@ returned format looks like this:
     diff: '204.20',
     percentage: '3.92%' } ]
 **/
+```
+
+## Example
+
+```
+node example.js
 ```
 
 ## License
