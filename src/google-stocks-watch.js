@@ -25,9 +25,10 @@ export default class GoogleStocksWatch {
   _process(data = []) {
     let result = [];
 
-    for (let dataObj of data) {
+    // cannot use for...of loop since it is supported only in Node > 0.12
+    data.forEach(dataObj => {
       result.push(this._onParse(dataObj));
-    }
+    });
 
     return result;
   }

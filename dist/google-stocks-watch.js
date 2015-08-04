@@ -45,50 +45,32 @@ var GoogleStocksWatch = (function () {
   _createClass(GoogleStocksWatch, [{
     key: '_process',
     value: function _process() {
+      var _this = this;
+
       var data = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
 
       var result = [];
 
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var dataObj = _step.value;
-
-          result.push(this._onParse(dataObj));
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator['return']) {
-            _iterator['return']();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
+      // cannot use for...of loop since it is supported only in Node > 0.12
+      data.forEach(function (dataObj) {
+        result.push(_this._onParse(dataObj));
+      });
 
       return result;
     }
   }, {
     key: '_tick',
     value: function _tick() {
-      var _this = this;
+      var _this2 = this;
 
       _googleStocks2['default'].get(this._stockCodes, function (error, data) {
         if (error) {
-          return _this._callback(error);
+          return _this2._callback(error);
         }
 
-        data = _this._process(data);
+        data = _this2._process(data);
 
-        _this._callback(undefined, data);
+        _this2._callback(undefined, data);
       });
     }
   }, {
