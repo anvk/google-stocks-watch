@@ -90,11 +90,9 @@ returned format looks like this:
 ## Example
 
 ```
-node example.js
+npm run example
 ```
 
 ## License
 
 MIT license; see [LICENSE](./LICENSE).
-
-(c) 2015 by Alexey Novak

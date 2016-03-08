@@ -15,15 +15,15 @@ var _googleStocks = require('google-stocks');
 var _googleStocks2 = _interopRequireDefault(_googleStocks);
 
 var GoogleStocksWatch = (function () {
-  function GoogleStocksWatch(_x, callback) {
-    var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-
-    var _ref$stocks = _ref.stocks;
-    var stocks = _ref$stocks === undefined ? {} : _ref$stocks;
-    var _ref$timerInterval = _ref.timerInterval;
-    var timerInterval = _ref$timerInterval === undefined ? 10000 : _ref$timerInterval;
+  function GoogleStocksWatch(options, callback) {
+    if (options === undefined) options = {};
 
     _classCallCheck(this, GoogleStocksWatch);
+
+    var _options$stocks = options.stocks;
+    var stocks = _options$stocks === undefined ? {} : _options$stocks;
+    var _options$timerInterval = options.timerInterval;
+    var timerInterval = _options$timerInterval === undefined ? 10000 : _options$timerInterval;
 
     if (!callback) {
       throw 'google-stocks-watch: callback is not passed';
@@ -53,7 +53,7 @@ var GoogleStocksWatch = (function () {
 
       // cannot use for...of loop since it is supported only in Node > 0.12
       data.forEach(function (dataObj) {
-        result.push(_this._onParse(dataObj));
+        return result.push(_this._onParse(dataObj));
       });
 
       return result;
@@ -63,43 +63,43 @@ var GoogleStocksWatch = (function () {
     value: function _tick() {
       var _this2 = this;
 
-      _googleStocks2['default'].get(this._stockCodes, function (error, data) {
+      (0, _googleStocks2['default'])(this._stockCodes, function (error, data) {
         if (error) {
           return _this2._callback(error);
         }
 
-        data = _this2._process(data);
-
-        _this2._callback(undefined, data);
+        _this2._callback(undefined, _this2._process(data));
       });
     }
   }, {
     key: '_onParse',
     value: function _onParse() {
-      var _ref2 = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+      var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+      var code = options.t;
+      var currentPrice = options.l;
+      var current_time = options.lt;
 
-      var stockCode = _ref2.t;
-      var currentPrice = _ref2.l;
-      var currentTime = _ref2.lt;
+      var _ref = this._stocks[code] || {};
 
-      var _ref3 = this._stocks[stockCode] || {};
+      var stockAmount = _ref.amount;
+      var initialPrice = _ref.price;
 
-      var stockAmount = _ref3.amount;
-      var initialPrice = _ref3.price;
       var currentTotalPrice = currentPrice * stockAmount;
       var purchasedTotalPrice = stockAmount * initialPrice;
       var difference = currentTotalPrice - purchasedTotalPrice;
 
+      var percentage = (difference / purchasedTotalPrice * 100).toFixed(2);
+
       return {
-        code: stockCode,
+        code: code,
         amount: stockAmount,
-        current_time: currentTime,
+        current_time: current_time,
         current_price: currentPrice,
         current_total_price: currentTotalPrice.toFixed(2),
         purchased_price: initialPrice,
         purchased_total_price: purchasedTotalPrice.toFixed(2),
         diff: difference.toFixed(2),
-        percentage: (difference / purchasedTotalPrice * 100).toFixed(2) + '%'
+        percentage: percentage + '%'
       };
     }
   }, {
@@ -132,5 +132,4 @@ var GoogleStocksWatch = (function () {
 })();
 
 exports['default'] = GoogleStocksWatch;
-;
 module.exports = exports['default'];

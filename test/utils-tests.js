@@ -1,13 +1,5 @@
-/* global it, describe, require */
+import { expect } from 'chai';
 
-var chai = require('chai'),
-    expect = chai.expect,
-    utils = require('../dist/google-stocks-watch.js');
-
-describe('utils tests', function() {
-
-  it('meh', function() {
-    expect(true).to.be.true;
-  });
-
+describe('utils tests', () => {
+  it('Need to write proper tests', () => expect(true).to.be.true);
 });
