@@ -1,10 +1,13 @@
-'use strict';
-
 import googleStocks from 'google-stocks';
 
 export default class GoogleStocksWatch {
 
-  constructor({stocks = {}, timerInterval = 10000} = {}, callback) {
+  constructor(options = {}, callback) {
+    const {
+      stocks = {},
+      timerInterval = 10000
+    } = options;
+
     if (!callback) {
       throw 'google-stocks-watch: callback is not passed';
     }
@@ -26,41 +29,49 @@ export default class GoogleStocksWatch {
     let result = [];
 
     // cannot use for...of loop since it is supported only in Node > 0.12
-    data.forEach(dataObj => {
-      result.push(this._onParse(dataObj));
-    });
+    data.forEach(dataObj => result.push(this._onParse(dataObj)));
 
     return result;
   }
 
   _tick() {
-    googleStocks.get(this._stockCodes, (error, data) => {
+    googleStocks(this._stockCodes, (error, data) => {
       if (error) {
         return this._callback(error);
       }
 
-      data = this._process(data);
-
-      this._callback(undefined, data);
+      this._callback(undefined, this._process(data));
     });
   }
 
-  _onParse({t: stockCode, l: currentPrice, lt: currentTime} = {}) {
-    let {amount: stockAmount, price: initialPrice} = this._stocks[stockCode] || {},
-        currentTotalPrice = currentPrice * stockAmount,
-        purchasedTotalPrice = stockAmount * initialPrice,
-        difference = currentTotalPrice - purchasedTotalPrice;
+  _onParse(options = {}) {
+    const {
+      t: code,
+      l: currentPrice,
+      lt: current_time
+    } = options;
+
+    const {
+      amount: stockAmount,
+      price: initialPrice
+    } = this._stocks[code] || {};
+
+    const currentTotalPrice = currentPrice * stockAmount;
+    const purchasedTotalPrice = stockAmount * initialPrice;
+    const difference = currentTotalPrice - purchasedTotalPrice;
+
+    const percentage = ((difference / purchasedTotalPrice) * 100).toFixed(2);
 
     return {
-      code: stockCode,
+      code,
       amount: stockAmount,
-      current_time: currentTime,
+      current_time,
       current_price: currentPrice,
       current_total_price: currentTotalPrice.toFixed(2),
       purchased_price: initialPrice,
       purchased_total_price: purchasedTotalPrice.toFixed(2),
       diff: difference.toFixed(2),
-      percentage: ((difference / purchasedTotalPrice) * 100).toFixed(2) + '%'
+      percentage: `${percentage}%`
     };
   }
 
@@ -84,4 +95,4 @@ export default class GoogleStocksWatch {
 
     clearInterval(this._interval);
   }
-};
+}
