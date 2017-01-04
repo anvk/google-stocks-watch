@@ -1,6 +1,6 @@
 {
   "name": "google-stocks-watch",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "author": "anvk",
   "main": "dist/google-stocks-watch.js",
   "description": "Stock ticker to pull the latest stock data and calculate gain or loss based on the purchase",
